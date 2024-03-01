@@ -22,7 +22,7 @@ export function LandingCarousel() {
             <Carousel
                 plugins={[
                     Autoplay({
-                        delay: 2000
+                        delay: 5000
                     })
                 ]}
                 className='w-full'>
@@ -33,13 +33,20 @@ export function LandingCarousel() {
                             className='pl-1 basis-1/2 md:basis-1/2 lg:basis-1/4'>
                             <div className='p-1'>
                                 <div className='group relative'>
-                                    <div className='aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80'>
+                                    <div className='w-full overflow-hidden aspect-[3/4] bg-gray-200'>
                                         <Image
                                             width={500}
                                             height={300}
                                             src='/images/product1.png'
-                                            alt='Front of men&#039;s Basic Tee in black.'
-                                            className='h-full w-full object-cover object-center lg:h-full lg:w-full'
+                                            alt=''
+                                            className='transition-all aspect-[3/4] object-cover'
+                                        />
+                                        <Image
+                                            width={500}
+                                            height={300}
+                                            src='/images/product2.png'
+                                            alt=''
+                                            className='opacity-0 group-hover:opacity-100 transition-all aspect-[3/4] object-cover absolute top-0 left-0'
                                         />
                                     </div>
                                     <div className='mt-4 flex justify-between'>
