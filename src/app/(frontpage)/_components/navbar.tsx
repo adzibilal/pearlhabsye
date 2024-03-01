@@ -2,6 +2,7 @@
 import { ThemeToggle } from '@/app/components/theme-toggle'
 import React, { useState, useEffect } from 'react'
 import { CgSearch, CgShoppingBag, CgProfile } from 'react-icons/cg'
+import { Cart } from './cart'
 
 const Navbar = () => {
     const [isScrolled, setIsScrolled] = useState(false)
@@ -54,9 +55,7 @@ const Navbar = () => {
                     <div className='text-xl cursor-pointer'>
                         <CgSearch />
                     </div>
-                    <div className='text-xl cursor-pointer'>
-                        <CgShoppingBag />
-                    </div>
+                    <Cart />
                     <div className='text-xl cursor-pointer'>
                         <CgProfile />
                     </div>
