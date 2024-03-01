@@ -37,14 +37,14 @@ export function LandingCarousel() {
                                         <Image
                                             width={500}
                                             height={300}
-                                            src='https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg'
+                                            src='/images/product1.png'
                                             alt='Front of men&#039;s Basic Tee in black.'
                                             className='h-full w-full object-cover object-center lg:h-full lg:w-full'
                                         />
                                     </div>
                                     <div className='mt-4 flex justify-between'>
                                         <div>
-                                            <h3 className='text-sm text-gray-700'>
+                                            <h3 className='text-sm text-gray-700 dark:text-gray-300'>
                                                 <a href='#'>
                                                     <span
                                                         aria-hidden='true'
@@ -52,11 +52,11 @@ export function LandingCarousel() {
                                                     Basic Tee
                                                 </a>
                                             </h3>
-                                            <p className='mt-1 text-sm text-gray-500'>
+                                            <p className='mt-1 text-sm text-gray-500 '>
                                                 Black
                                             </p>
                                         </div>
-                                        <p className='text-sm font-medium text-gray-900'>
+                                        <p className='text-sm font-medium text-gray-900 dark:text-gray-100'>
                                             IDR 256.000
                                         </p>
                                     </div>

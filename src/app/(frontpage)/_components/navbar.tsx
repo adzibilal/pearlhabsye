@@ -27,7 +27,7 @@ const Navbar = () => {
     return (
         <div
             className={`fixed w-full z-20 transition-all duration-300 ${
-                isScrolled ? 'bg-white' : 'bg-transparent !text-white'
+                isScrolled ? 'bg-white dark:bg-zinc-950' : 'bg-transparent !text-white'
             }`}>
             <div className='max-con min-h-[72px] flex items-center justify-between'>
                 <div className='flex items-center gap-10'>
