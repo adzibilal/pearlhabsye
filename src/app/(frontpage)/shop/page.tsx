@@ -5,13 +5,17 @@ import FilterShop from './_components/filter-shop'
 import CardProduct from './_components/card-product'
 import { Product } from '@prisma/client'
 import toast from 'react-hot-toast'
+import { useSearchParams } from 'next/navigation'
 
 const ShopPage = () => {
     const [products, setProducts] = useState<Product[]>()
+    const [sortBy, setSortBy] = useState('')
+    const [category, setCategory] = useState('')
+    const searchParams = useSearchParams()
 
     const getProducts = async () => {
         try {
-            const res = await fetch('/api/store/product', {
+            const res = await fetch(`/api/store/product?sortBy=${sortBy}&category=${category}`, {
                 method: 'GET'
             })
 
@@ -26,8 +30,11 @@ const ShopPage = () => {
     }
 
     useEffect(() => {
+        setSortBy(searchParams.get('sortBy') ?? '')
+        setCategory(searchParams.get('category') ?? '')
         getProducts()
-    }, [])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [searchParams])
 
     return (
         <div className='pt-[72px] pb-20'>
@@ -41,7 +48,7 @@ const ShopPage = () => {
                 </div>
                 <div className='text-4xl italic'>All Products</div>
             </div>
-            <div className='max-con !mt-5'>
+            <div className='max-con !mt-5 min-h-[32vw]'>
                 <div className='grid grid-cols-1 md:grid-cols-[180px_1fr] gap-3'>
                     <FilterShop />
                     <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3'>
