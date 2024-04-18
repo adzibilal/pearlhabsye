@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { Albert_Sans } from 'next/font/google'
 import './globals.css'
 import { ThemeProvider } from './components/theme-provider'
-
+import { Toaster } from 'react-hot-toast'
 const albert_sans = Albert_Sans({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
@@ -24,6 +24,7 @@ export default function RootLayout({
                     enableSystem
                     disableTransitionOnChange>
                     {children}
+                    <Toaster />
                 </ThemeProvider>
             </body>
         </html>

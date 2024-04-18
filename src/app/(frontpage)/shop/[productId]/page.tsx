@@ -1,9 +1,53 @@
 'use client'
+import { formatBlankPrice } from '@/lib/utils'
+import { Product } from '@prisma/client'
 import Image from 'next/image'
 import Link from 'next/link'
-import React from 'react'
+import { useParams } from 'next/navigation'
+import { useRouter } from 'next/router'
+import React, { useEffect, useState } from 'react'
+import toast from 'react-hot-toast'
 
 const DetailProductPage = () => {
+    const [isLoading, setIsLoading] = useState(true)
+    const [product, setProduct] = React.useState<Product>()
+    const [selectedSizes, setSelectedSizes] = useState<string[]>([])
+    const [sizeInput, setSizeInput] = useState<string>('')
+    const [description, setDescription] = useState<string>('')
+    const [images, setImages] = useState<string[]>([])
+    const params = useParams()
+
+    const getProduct = async () => {
+        try {
+            const res = await fetch(`/api/product/${params.productId}`, {
+                method: 'GET'
+            })
+            if (!res.ok) {
+                throw new Error('Failed to fetch product')
+            }
+            const data = await res.json()
+            const images = data.image
+            const sizes = data.sizes
+            setProduct(data)
+            if (Array.isArray(images)) {
+                setImages(data.image)
+            }
+            if (Array.isArray(sizes)) {
+                setSelectedSizes(data.sizes)
+            }
+            setIsLoading(false)
+        } catch (error) {
+            setIsLoading(false)
+            toast.error('Failed to fetch product')
+            console.error(error)
+        }
+    }
+
+    useEffect(() => {
+        getProduct()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
     const handleCheckout = async () => {
         const data = {
             id: 'ITEM1',
@@ -52,40 +96,29 @@ const DetailProductPage = () => {
                         <div className=''>Shop</div>
                     </Link>
                     <div className=''>/</div>
-                    <div className=''>Blessed Oversized Boxy Tee</div>
+                    <div className=''>{product?.title}</div>
                 </div>
             </div>
             <div className='max-con'>
                 <div className='grid grid-cols-[3fr_2fr] relative gap-3'>
                     <div className=''>
-                        <Image
-                            width={1000}
-                            height={300}
-                            src='/images/product1.png'
-                            alt=''
-                            className='aspect-[3/4] object-cover'
-                        />
-                        <Image
-                            width={1000}
-                            height={300}
-                            src='/images/product2.png'
-                            alt=''
-                            className='aspect-[3/4] object-cover'
-                        />
-                        <Image
-                            width={1000}
-                            height={300}
-                            src='/images/product1.png'
-                            alt=''
-                            className='aspect-[3/4] object-cover'
-                        />
+                        {images.map((image, index) => (
+                            <Image
+                                key={index}
+                                width={1000}
+                                height={300}
+                                src={image}
+                                alt=''
+                                className=''
+                            />
+                        ))}
                     </div>
                     <div className='sticky top-[80px] bg-muted h-max p-3'>
                         <div className='flex font-semibold text-2xl'>
-                            IDR 178.699
+                            IDR {product && formatBlankPrice(product.price)}
                         </div>
                         <div className='font-semibold text-3xl'>
-                            Blessed Oversized Boxy Tee
+                            {product?.title}
                         </div>
 
                         <div className='flex items-center justify-between text-sm mb-2 mt-3'>
@@ -93,24 +126,13 @@ const DetailProductPage = () => {
                             <div className='underline'>SIZE CHART</div>
                         </div>
                         <div className='grid grid-cols-4 gap-3'>
-                            <div className='border px-3 py-1 text-center cursor-pointer hover:bg-zinc-200'>
-                                XS
-                            </div>
-                            <div className='border px-3 py-1 text-center cursor-pointer hover:bg-zinc-200'>
-                                S
-                            </div>
-                            <div className='border px-3 py-1 text-center cursor-pointer hover:bg-zinc-200'>
-                                M
-                            </div>
-                            <div className='border px-3 py-1 text-center cursor-pointer hover:bg-zinc-200'>
-                                L
-                            </div>
-                            <div className='border px-3 py-1 text-center cursor-pointer hover:bg-zinc-200'>
-                                XL
-                            </div>
-                            <div className='border px-3 py-1 text-center cursor-pointer hover:bg-zinc-200'>
-                                XXL
-                            </div>
+                            {selectedSizes.map((size, index) => (
+                                <div
+                                    key={index}
+                                    className='border px-3 py-1 text-center cursor-pointer hover:bg-zinc-200'>
+                                    {size}
+                                </div>
+                            ))}
                         </div>
                         <div
                             onClick={handleCheckout}
@@ -119,22 +141,13 @@ const DetailProductPage = () => {
                         </div>
 
                         <div className='mt-3 mb-2'>Description :</div>
-                        <div className='text-sm'>
-                            Lorem ipsum dolor sit amet consectetur adipisicing
-                            elit. Quisquam, quod. Lorem ipsum dolor sit amet
-                            consectetur adipisicing elit. Quisquam, quod. Lorem
-                            ipsum dolor sit amet consectetur adipisicing elit.
-                            Quisquam, quod. Lorem ipsum dolor sit amet
-                            consectetur adipisicing elit. Quisquam, quod. Lorem
-                            ipsum dolor sit amet consectetur adipisicing elit.
-                            Quisquam, quod. Lorem ipsum dolor sit amet
-                            consectetur adipisicing elit. Quisquam, quod. Lorem
-                            ipsum dolor sit amet consectetur adipisicing elit.
-                            Quisquam, quod. Lorem ipsum dolor sit amet
-                            consectetur adipisicing elit. Quisquam, quod. Lorem
-                            ipsum dolor sit amet consectetur adipisicing elit.
-                            Quisquam, qu
-                        </div>
+                        {product && product.description && (
+                            <div
+                                className='text-sm desc-detail'
+                                dangerouslySetInnerHTML={{
+                                    __html: product.description
+                                }}></div>
+                        )}
                     </div>
                 </div>
             </div>

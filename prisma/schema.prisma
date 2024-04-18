@@ -29,6 +29,7 @@ model Product {
   image             Json?
   price             Int
   sizes             Json?
+  available         Boolean?            @default(true)
   createdAt         DateTime?           @default(now())
   updatedAt         DateTime?           @updatedAt
   TransactionDetail TransactionDetail[]
@@ -46,6 +47,9 @@ model Transaction {
   id        String    @id @default(auto()) @map("_id") @db.ObjectId
   amount    String
   status    String    @default("pending")
+  name      String?
+  email     String
+  phone     String
   createdAt DateTime? @default(now())
   updatedAt DateTime? @updatedAt
 }
