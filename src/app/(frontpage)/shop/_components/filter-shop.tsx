@@ -1,80 +1,36 @@
 'use client'
 import React from 'react'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-
-interface QueryParams {
-    [key: string]: string
-}
 
 const FilterShop = () => {
-    const router = useRouter()
-    const pathname = usePathname()
-    const query = useSearchParams()
-
-    const handleNavigate = (queryParams: QueryParams) => {
-        const searchParams = new URLSearchParams(query)
-        for (const [key, value] of Object.entries(queryParams)) {
-            if (value) {
-                searchParams.set(key, value)
-            } else {
-                searchParams.delete(key) 
-            }
-        }
-
-        router.push(`${pathname}?${searchParams}`)
-    }
-
     return (
         <div className='hidden md:block'>
             <div className='flex flex-col gap-1 mb-5'>
                 <div className='text-xs font-bold mb-1'>SHORT BY</div>
-                <div
-                    className='text-sm cursor-pointer hover:underline'
-                    onClick={() => handleNavigate({ sortBy: 'latest' })}>
+                <div className='text-sm cursor-pointer hover:underline'>
                     Latest Arrival
                 </div>
-                <div
-                    className='text-sm cursor-pointer hover:underline'
-                    onClick={() => handleNavigate({ sortBy: 'bestseller' })}>
+                <div className='text-sm cursor-pointer hover:underline'>
                     Best Seller
                 </div>
-                <div
-                    className='text-sm cursor-pointer hover:underline'
-                    onClick={() =>
-                        handleNavigate({ sortBy: 'price-low-to-high' })
-                    }>
+                <div className='text-sm cursor-pointer hover:underline'>
                     Price: Low to High
                 </div>
-                <div
-                    className='text-sm cursor-pointer hover:underline'
-                    onClick={() =>
-                        handleNavigate({ sortBy: 'price-high-to-low' })
-                    }>
+                <div className='text-sm cursor-pointer hover:underline'>
                     Price: High to Low
                 </div>
             </div>
             <div className='flex flex-col gap-1 mb-5'>
                 <div className='text-xs font-bold mb-1'>CATEGORIES</div>
-                <div
-                    className='text-sm cursor-pointer hover:underline'
-                    onClick={() => handleNavigate({ category: 'shoes' })}>
+                <div className='text-sm cursor-pointer hover:underline'>
                     Shoes
                 </div>
-                <div
-                    className='text-sm cursor-pointer hover:underline'
-                    onClick={() => handleNavigate({ category: 'boxy-tshirt' })}>
+                <div className='text-sm cursor-pointer hover:underline'>
                     Boxy Tshirt
                 </div>
-                <div
-                    className='text-sm cursor-pointer hover:underline'
-                    onClick={() =>
-                        handleNavigate({ category: 'oversized-tshirt' })
-                    }>
+                <div className='text-sm cursor-pointer hover:underline'>
                     Oversized Tshirt
                 </div>
-                <div
-                    className='text-sm cursor-pointer hover:underline'
-                    onClick={() => handleNavigate({ category: 'totebag' })}>
+                <div className='text-sm cursor-pointer hover:underline'>
                     Totebag
                 </div>
             </div>

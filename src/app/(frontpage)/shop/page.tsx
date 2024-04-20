@@ -5,18 +5,13 @@ import FilterShop from './_components/filter-shop'
 import CardProduct from './_components/card-product'
 import { Product } from '@prisma/client'
 import toast from 'react-hot-toast'
-// import { useSearchParams } from 'next/navigation'
 
 const ShopPage = () => {
     const [products, setProducts] = useState<Product[]>()
-    const [sortBy, setSortBy] = useState('')
-    const [category, setCategory] = useState('')
-    // const searchParams = useSearchParams()
-
     const getProducts = async () => {
         try {
             const res = await fetch(
-                `/api/store/product?sortBy=${sortBy}&category=${category}`,
+                `/api/store/product`,
                 {
                     method: 'GET'
                 }
@@ -33,15 +28,9 @@ const ShopPage = () => {
     }
 
     useEffect(() => {
-        // setSortBy(searchParams.get('sortBy') ?? '')
-        // setCategory(searchParams.get('category') ?? '')
         getProducts()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
-    // useEffect(() => {
-    //     getProducts()
-    //     // eslint-disable-next-line react-hooks/exhaustive-deps
-    // }, [searchParams])
 
     return (
         <div className='pt-[72px] pb-20'>
