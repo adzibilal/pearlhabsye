@@ -6,6 +6,9 @@ const nextConfig = {
             'adzibilal.vercel.app',
             'tailwindui.com'
         ]
+    },
+    experimental: {
+        missingSuspenseWithCSRBailout: false
     }
 }
 
