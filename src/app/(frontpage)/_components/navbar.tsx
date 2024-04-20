@@ -5,10 +5,13 @@ import { CgSearch, CgShoppingBag, CgProfile } from 'react-icons/cg'
 import { Cart } from './cart'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
+import { useCartStore } from '@/store/useCartStore'
 
 const Navbar = () => {
     const [isScrolled, setIsScrolled] = useState(false)
     const pathname = usePathname()
+    const items = useCartStore((state: any) => state.items)
+
     useEffect(() => {
         if (pathname === '/') {
             const handleScroll = () => {
@@ -51,7 +54,12 @@ const Navbar = () => {
                     </Link>
                     <div className='hidden md:flex items-center gap-3'>
                         <Link href='/shop'>
-                            <div className={`text-sm cursor-pointer px-3 hover:text-indigo-700 ${pathname == '/shop' ? 'text-indigo-700 font-semibold' : ''}`}>
+                            <div
+                                className={`text-sm cursor-pointer px-3 hover:text-indigo-700 ${
+                                    pathname == '/shop'
+                                        ? 'text-indigo-700 font-semibold'
+                                        : ''
+                                }`}>
                                 Shop
                             </div>
                         </Link>
@@ -68,7 +76,14 @@ const Navbar = () => {
                     <div className='text-xl cursor-pointer'>
                         <CgSearch />
                     </div>
-                    <Cart />
+                    <div className='relative'>
+                        {items.length !== 0 && (
+                            <div className='absolute bg-indigo-700 text-white w-4 h-4 top-[-30%] right-[-30%] rounded-full flex items-center justify-center text-[10px]'>
+                                {items.length}
+                            </div>
+                        )}
+                        <Cart />
+                    </div>
                     <div className='text-xl cursor-pointer'>
                         <CgProfile />
                     </div>

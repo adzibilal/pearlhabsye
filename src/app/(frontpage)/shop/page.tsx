@@ -15,9 +15,12 @@ const ShopPage = () => {
 
     const getProducts = async () => {
         try {
-            const res = await fetch(`/api/store/product?sortBy=${sortBy}&category=${category}`, {
-                method: 'GET'
-            })
+            const res = await fetch(
+                `/api/store/product?sortBy=${sortBy}&category=${category}`,
+                {
+                    method: 'GET'
+                }
+            )
 
             if (!res.ok) {
                 throw new Error('Internal Server Error')
@@ -33,7 +36,11 @@ const ShopPage = () => {
         setSortBy(searchParams.get('sortBy') ?? '')
         setCategory(searchParams.get('category') ?? '')
         getProducts()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+    useEffect(() => {
+        getProducts()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchParams])
 
     return (
