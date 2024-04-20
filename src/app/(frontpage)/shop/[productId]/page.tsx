@@ -113,7 +113,7 @@ const DetailProductPage = () => {
     return (
         <div className='pt-[72px] pb-20'>
             <div className='max-con'>
-                <div className='flex gap-2 text-sm mt-5 mb-1'>
+                <div className='flex gap-2 text-sm mt-5 mb-3 '>
                     <Link href='/'>
                         <div className=''>Home</div>
                     </Link>
@@ -122,7 +122,7 @@ const DetailProductPage = () => {
                         <div className=''>Shop</div>
                     </Link>
                     <div className=''>/</div>
-                    <div className=''>{product?.title}</div>
+                    <div className='line-clamp-1 text-ellipsis'>{product?.title}</div>
                 </div>
             </div>
             <div className='max-con'>

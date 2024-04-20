@@ -28,7 +28,7 @@ export function Cart() {
                     <CgShoppingBag />
                 </div>
             </SheetTrigger>
-            <SheetContent className='w-[500px] sm:w-[540px]'>
+            <SheetContent className='md:w-[500px] w-full'>
                 <SheetHeader>
                     <SheetTitle>Shooping Cart</SheetTitle>
                     <SheetDescription>
