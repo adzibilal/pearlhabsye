@@ -16,11 +16,18 @@ import { CgShoppingBag } from 'react-icons/cg'
 import { useCartStore } from '@/store/useCartStore'
 import { Trash2 } from 'lucide-react'
 import { formatBlankPrice, formatRupiah } from '@/lib/utils'
+import { useRouter } from 'next/navigation'
 
 export function Cart() {
     const items = useCartStore((state: any) => state.items)
+    const total = useCartStore((state) => state.total)
     const removeFromCart = useCartStore(state => state.removeFromCart)
     const updateQty = useCartStore(state => state.updateQty)
+    const router = useRouter()
+
+    const handleCheckout = () => {
+        router.push('/checkout')
+    }
     return (
         <Sheet>
             <SheetTrigger asChild>
@@ -65,6 +72,7 @@ export function Cart() {
                                                 onChange={e =>
                                                     updateQty(
                                                         item.id,
+                                                        item.size,
                                                         parseInt(e.target.value)
                                                     )
                                                 }
@@ -94,9 +102,9 @@ export function Cart() {
                     <div className='bottom-0 w-full pb-3'>
                         <div className='flex items-end justify-between mb-3'>
                             <div className=''>Subtotal</div>
-                            <div className='text-xl font-bold text-indigo-700'>IDR 1.136.000</div>
+                            <div className='text-xl font-bold text-indigo-700'>{formatRupiah(total)}</div>
                         </div>
-                        <div className='bg-indigo-700 text-white text-center py-3 cursor-pointer hover:bg-indigo-800'>Proceed to Checkout</div>
+                        <div className='bg-indigo-700 text-white text-center py-3 cursor-pointer hover:bg-indigo-800' onClick={handleCheckout}>Proceed to Checkout</div>
                     </div>
             </SheetContent>
         </Sheet>
