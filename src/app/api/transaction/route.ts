@@ -1,5 +1,6 @@
 //@ts-ignore
 import Midtrans from 'midtrans-client'
+import { Transaction } from '@/lib/types'
 import { NextResponse } from 'next/server'
 
 let snap = new Midtrans.Snap({
@@ -9,19 +10,17 @@ let snap = new Midtrans.Snap({
 })
 
 export async function POST(request: Request) {
-    const { id, price, quantity, name, category } = await request.json()
+    const data: Transaction = await request.json()
 
     let parameter = {
-        item_details: {
-            id: id,
-            name: name,
-            quantity: quantity,
-            price: price,
-            category: category
-        },
         transaction_details: {
-            order_id: `TRX-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
-            gross_amount: price * quantity
+            order_id: data.transactionID,
+            gross_amount: data.amount
+        },
+        customer_details: {
+            first_name: data.name,
+            email: data.email,
+            phone: data.phone
         }
     }
 

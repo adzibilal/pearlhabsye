@@ -51,42 +51,6 @@ const DetailProductPage = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    const handleCheckout = async () => {
-        const data = {
-            id: 'ITEM1',
-            price: 1000,
-            quantity: 1,
-            name: 'Midtrans Bear',
-            category: 'Toys'
-        }
-
-        const response = await fetch('/api/transaction', {
-            method: 'POST',
-            body: JSON.stringify(data)
-        })
-
-        const token = await response.json()
-        // @ts-ignore
-        window.snap.pay(token, {
-            onSuccess: function (result: any) {
-                console.log('success')
-                console.log(result)
-            },
-            onPending: function (result: any) {
-                console.log('pending')
-                console.log(result)
-            },
-            onError: function (result: any) {
-                console.log('error')
-                console.log(result)
-            },
-            onClose: function () {
-                console.log(
-                    'customer closed the popup without finishing the payment'
-                )
-            }
-        })
-    }
     const selectSize = (size: string) => {
         setCheckedSize(size)
     }

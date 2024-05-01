@@ -1,5 +1,4 @@
 import Footer from './_components/footer'
-import MidtransClient from './_components/midtrans-client'
 import Navbar from './_components/navbar'
 
 export default function FrontLayout({
@@ -12,7 +11,6 @@ export default function FrontLayout({
             <Navbar />
             {children}
             <Footer />
-            <MidtransClient />
         </div>
     )
 }

@@ -9,13 +9,14 @@ import {
 import PurchaseSummary from './_components/purchase-summary'
 import CustomerDetails from './_components/customer-details'
 import DeliveryAddress from './_components/delivery-address'
+import OrderSummary from './_components/order-summary'
 
 const page = () => {
     return (
         <div>
             <Navbar />
             <div className='max-con'>
-                <div className='grid grid-cols-[2fr_1fr] gap-3 mt-16'>
+                <div className='grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-3 mt-16'>
                     <Accordion
                         type='multiple'
                         defaultValue={['item-1', 'item-2', 'item-3', 'item-4']}
@@ -44,16 +45,8 @@ const page = () => {
                                 <DeliveryAddress />
                             </AccordionContent>
                         </AccordionItem>
-                        <AccordionItem value='item-4' disabled>
-                            <AccordionTrigger className='text-xl font-semibold'>
-                                Delivery Method
-                            </AccordionTrigger>
-                            <AccordionContent>
-                                Yes. Its animated by default, but you can
-                                disable it if you prefer.
-                            </AccordionContent>
-                        </AccordionItem>
                     </Accordion>
+                    <OrderSummary />
                 </div>
             </div>
         </div>

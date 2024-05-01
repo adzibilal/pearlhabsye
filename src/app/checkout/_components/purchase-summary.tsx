@@ -5,12 +5,26 @@ import { formatRupiah } from '@/lib/utils'
 import { useCartStore } from '@/store/useCartStore'
 import { Trash2 } from 'lucide-react'
 import Image from 'next/image'
-import React from 'react'
+import { useRouter } from 'next/navigation'
+import React, { useEffect } from 'react'
+import toast from 'react-hot-toast'
 
 const PurchaseSummary = () => {
     const items = useCartStore((state: any) => state.items)
     const removeFromCart = useCartStore(state => state.removeFromCart)
     const updateQty = useCartStore(state => state.updateQty)
+    const router = useRouter()
+    const checkProduct = () => {
+        if (items.length === 0) {
+            toast('No Product In cart')
+            router.push('/shop')
+        }
+    }
+
+    useEffect(() => {
+        checkProduct()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [items])
 
     return (
         <div>
